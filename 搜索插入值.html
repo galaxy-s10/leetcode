@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 2, 4, 5, 6, 7];
+
+      // 二分查找
+      function searchInsert(sortarr, target) {
+        // 遍历有序数组
+        let left = 0;
+        let right = sortarr.length;
+        while (left < right) {
+          console.log("left:", left, "right:", right);
+          let mid = Math.ceil((right - left) / 2);
+          console.log("mid:", mid);
+          if (target < sortarr[mid]) {
+            // 当target比中间值小，那么就代表target一定要插入在中间值的左边
+            right = mid;
+          } else if (target > sortarr[mid]) {
+            left = mid + 1;
+          } else {
+            console.log("==");
+            res = mid;
+          }
+          console.log("left:", left, "right:", right, "mid:", mid);
+        }
+        return left;
+      }
+      console.log("插入位置：", searchInsert(arr, 3));
+      console.log(arr);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 求无序数组中的最大值
+      let arr = [1, 4, 63, 65, 2, 6];
+
+      function findMax1(arr) {
+        // 遍历有序数组
+        let max = arr[0];
+        arr.forEach((value, index) => {
+          console.log("000");
+          if (arr[index] > max) {
+            max = arr[index];
+          }
+        });
+        return max;
+      }
+
+      console.log(findMax1(arr));
+    </script>
+  </body>
+</html>
