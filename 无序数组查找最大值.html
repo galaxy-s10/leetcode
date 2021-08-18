@@ -11,7 +11,8 @@
       // 求无序数组中的最大值
       let arr = [1, 4, 63, 65, 2, 6];
 
-      function findMax1(arr) {
+      // 方法1，依次遍历，需要遍历arr.length次
+      function findMax(arr) {
         // 遍历有序数组
         let max = arr[0];
         arr.forEach((value, index) => {
@@ -22,8 +23,49 @@
         });
         return max;
       }
+      // 方法2，Math.max和es6扩展运算符
+      function findMax1(arr) {
+        return Math.max(...arr);
+      }
 
-      console.log(findMax1(arr));
+      // 方法3，Math.max和apply
+      function findMax2(arr) {
+        return Math.max.apply(null, arr);
+      }
+
+      /**
+       * 方法4，sort(cb)，排序后再取第一个或者最后一个。注意：sort会改变原数组。最好先slice()或concat()一下。
+       * 如果cb(a,b)小于0，则a会被排在b的前面；
+       * 如果cb(a,b)大于0，则b会被排在a的前面；
+       * 死记：(a, b) => a - b从小到大排序
+       * 死记：(a, b) => b - a从大到小排序
+       */
+      function findMax3(arr) {
+        // return arr.slice().sort((a, b) => {
+        let newarr = arr.concat().sort((a, b) => {
+          // if (a < b) {
+          //   return -1;
+          // } else {
+          //   return 1;
+          // }
+          return a - b;
+        });
+        return newarr[newarr.length - 1];
+      }
+
+      // 方法5，reduce
+      function findMax4(arr) {
+        return arr.reduce((a, b) => {
+          return a > b ? a : b;
+        });
+      }
+
+      // console.log(findMax(arr));
+      // console.log(findMax1(arr));
+      // console.log(findMax2(arr));
+      // console.log(findMax3(arr));
+      console.log(findMax4(arr));
+      console.log("原数组：", arr);
     </script>
   </body>
 </html>

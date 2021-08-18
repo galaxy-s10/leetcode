@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 方法1，两次遍历。
+       * 第一次遍历，将数组的值当做键，出现的次数当做值，保存在一个对象里
+       * 第二次遍历，Object.kes()遍历找到里面值最大的元素
+       * 缺点：
+       * 1，不能区分数组里的数字1和字符串1，会两者会当成一个叠加。解决：数组的值别直接当做键，拼上Object.prototype.toString.call(key)
+       * 2，如果有两个或者多个出现次数一样且都是最多的，则只能输出一个。解决：第二次遍历时加多一个else if判断，当遍历的值等于最大次数就使用+=拼上key
+       * 3，遍历次数太多。
+       */
+      let arr = ["a", "b", "b", 1, 2, 2, 3, 2, 4, "a", "b", "1"];
+      function searchMuch(arr) {
+        let res = {};
+        let max = { key: null, value: 1 };
+        arr.forEach((item) => {
+          let key = `${Object.prototype.toString.call(item)} ${item}`;
+          res[key] = res[key] ? ++res[key] : 1;
+        });
+        Object.keys(res).forEach((key, index) => {
+          console.log(key);
+          if (res[key] > max.value) {
+            max.key = key;
+            max.value = res[key];
+          } else if (res[key] === max.value) {
+            max.key += `,${key}`;
+          }
+        });
+        console.log(res);
+        return max;
+      }
+
+      /**
+       * 方法2，在方法1的基础上优化，将方法1里的第二次遍历里面的判断也放到for循环里面进行判断
+       * 一次遍历即可
+       */
+      function searchMuch1(arr) {
+        let res = {};
+        let max = { key: null, value: 1 };
+        arr.forEach((item) => {
+          let key = `${Object.prototype.toString.call(item)} ${item}`;
+          console.log(key);
+          res[key] = res[key] ? ++res[key] : 1;
+          if (res[key] > max.value) {
+            max.key = key;
+            max.value = res[key];
+          } else if (res[key] === max.value) {
+            max.key += `,${key}`;
+          }
+        });
+        console.log(res);
+        return max;
+      }
+
+      //   console.log(searchMuch(arr));
+      console.log(searchMuch1(arr));
+    </script>
+  </body>
+</html>
