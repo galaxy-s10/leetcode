@@ -60,8 +60,31 @@
         return max;
       }
 
+      /**
+       * 方法3，reduce
+       */
+
+      function searchMuch2(arr) {
+        let res = {};
+        let max = { key: null, value: 1 };
+        return arr.reduce((acc, current) => {
+          let key = `${Object.prototype.toString.call(current)} ${current}`;
+          console.log(key);
+          console.log(acc, current);
+          acc[key] = acc[key] ? ++acc[key] : 1;
+          if (res[key] > max.value) {
+            max.key = key;
+            max.value = res[key];
+          }
+          console.log(max, 222);
+          return acc;
+        }, {});
+        // return max;
+      }
+
       //   console.log(searchMuch(arr));
-      console.log(searchMuch1(arr));
+      //   console.log(searchMuch1(arr));
+      console.log(searchMuch2(arr));
     </script>
   </body>
 </html>
