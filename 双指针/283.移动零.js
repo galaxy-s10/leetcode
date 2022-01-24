@@ -116,7 +116,7 @@ var moveZeroes5 = function (nums) {
 
 /**
  * 方法6✅，升级版冒泡
- * 缺点：性能一般
+ * 缺点：性能差
  * @param {number[]} nums
  */
 var moveZeroes6 = function (nums) {
@@ -130,7 +130,55 @@ var moveZeroes6 = function (nums) {
   console.log("方法6✅，升级版冒泡");
 };
 
+/**
+ * 方法7✅
+ * 一次遍历，直接将遍历到的不是0的数字从数组的下标0开始赋值，
+ * 这样不是0的数就会按照之前的顺序重新排到前面，最后再补剩余的0
+ * 优点：性能好
+ * @param {number[]} nums
+ */
+var moveZeroes7 = function (nums) {
+  let j = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      nums[j] = nums[i];
+      j++;
+    }
+  }
+  for (let i = j; i < nums.length; i++) {
+    nums[i] = 0;
+  }
+  console.log("方法7✅");
+};
+
+/**
+ * 方法8✅
+ * 双指针,其实核心思想还是将非0数往前移动：
+ * 快慢两个指针，一开始在同一起点，然后慢指针不动，快指针一步步
+ * 往前走，快指针指到的数不为0，就和慢指针的数交换，然后慢指针
+ * 向前走一步，这样如果一共交换了n次，其实就是有n个不为0的数按顺序
+ * 移到开头了，最后剩下的就都是0。
+ * [0, 1, 0, 3, 12]
+ * 第1次：[0, 1, 0, 3, 12]，slow:0，fast:0
+ * 第2次：[1, 0, 0, 3, 12]，slow:0，fast:1
+ * 第3次：[1, 0, 0, 3, 12]，slow:1，fast:2
+ * 第4次：[1, 3, 0, 0, 12]，slow:2，fast:3
+ * 第5次：[1, 3, 12, 0, 0]，slow:3，fast:4
+ * 优点：性能好
+ * @param {number[]} nums
+ */
+var moveZeroes8 = function (nums) {
+  let slow = 0;
+  for (let fast = 0; fast < nums.length; fast++) {
+    if (nums[fast] !== 0) {
+      [nums[slow], nums[fast]] = [nums[fast], nums[slow]];
+      slow++;
+    }
+  }
+  console.log("方法7✅");
+};
+
 var arr = [0, 1, 0, 3, 12];
 console.log("原数组", arr);
-moveZeroes6(arr);
+moveZeroes8(arr);
 console.log("结果", arr);
